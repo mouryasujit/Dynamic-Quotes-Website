@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Dynamic Quotes Website</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>This is Dynamic Website Using API</h1>
+        <h2>By-SujitKumar Mourya</h2>
+        <div class="qoute">
+            <div id="text"></div>
+            <div id="author"></div>
+
+            <button id="button" onclick="getNewQuotes()">Change</button>
+
+        </div>
+        <div class="button-container">
+            <button id="share" onclick="capture()"> Open WhatsApp </button>
+            <button id="share2" onclick="share2()"> Text Share </button>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.4/html2canvas.min.js"></script>
+
+    <script>
+       let img=document.createElement('img');
+        function capture() {
+            html2canvas(document.body).then((canvas) => {
+                let a = document.createElement("a");
+                a.download = "ss.png";
+                img=a;
+                a.href = canvas.toDataURL("image/png");
+                a.click();
+                alert("Screenshort has been taken share it 😄");
+                window.open(`whatsapp://send?text=image is downloaded on your device send it 😄`);
+
+            });
+        }
+
+        let text = document.getElementById('text');
+        let author = document.getElementById('author');
+        let share = document.getElementById('share');
+        
+
+
+
+        let realdata = "";
+        let data2="";
+        const getNewQuotes = () => {
+            let rnum = Math.floor(Math.random() * 1648);
+            text.innerHTML = realdata[rnum].text;
+            data=realdata[rnum].text;
+            author.innerHTML = realdata[rnum].author;
+            if (realdata[rnum].author == null) {
+                author.innerHTML = "By-Unknown";
+            } else {
+                author.innerHTML = `<span>By</span>-${realdata[rnum].author}`;
+            }
+        }
+        function share2() {
+            window.open(`whatsapp://send?text=${data}`);
+        }
+
+        const getQuotes = async () => {
+            const api = "https://type.fit/api/quotes";
+            try {
+                let data = await fetch(api);
+                realdata = await data.json();
+                getNewQuotes();
+                // console.log(realdata[1].author);
+            }
+            catch (error) {
+            }
+        }
+        getQuotes();
+
+
+    </script>
+</body>
+
+</html>
