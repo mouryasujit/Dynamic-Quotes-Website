@@ -1,12 +1,15 @@
 # Dynamic-Quotes-Website
  
-# Specially design for mobile
-# Hosted link is in about section
+## Specially design for mobile
+## Hosted link is in about section
 
 # Front End
 - Html
 - css
 - javascript
+
+# For Geeting the data
+- Using Api
 
 # screenshots
 
